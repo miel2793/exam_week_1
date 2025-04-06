@@ -1,57 +1,41 @@
-import 'package:args/args.dart';
+void main() {
+  List<Map<String, dynamic>> students = [
+    {
+      "name": "Alice",
+      "scores": [85, 90, 78],
+    },
+    {
+      "name": "Bob",
+      "scores": [88, 76, 95],
+    },
+    {
+      "name": "Charlie",
+      "scores": [90, 92, 85],
+    },
+  ];
 
-const String version = '0.0.1';
+  Map<String, double> avg = {};
 
-ArgParser buildParser() {
-  return ArgParser()
-    ..addFlag(
-      'help',
-      abbr: 'h',
-      negatable: false,
-      help: 'Print this usage information.',
-    )
-    ..addFlag(
-      'verbose',
-      abbr: 'v',
-      negatable: false,
-      help: 'Show additional command output.',
-    )
-    ..addFlag('version', negatable: false, help: 'Print the tool version.');
-}
+  for (var student in students) {
+    String name = student['name'];
+    List<int> scores = List<int>.from(student['scores']);
 
-void printUsage(ArgParser argParser) {
-  print('Usage: dart exam_week_1.dart <flags> [arguments]');
-  print(argParser.usage);
-}
-
-void main(List<String> arguments) {
-  final ArgParser argParser = buildParser();
-  try {
-    final ArgResults results = argParser.parse(arguments);
-    bool verbose = false;
-
-    // Process the parsed arguments.
-    if (results.flag('help')) {
-      printUsage(argParser);
-      return;
-    }
-    if (results.flag('version')) {
-      print('exam_week_1 version: $version');
-      return;
-    }
-    if (results.flag('verbose')) {
-      verbose = true;
+    int total = 0;
+    for (int score in scores) {
+      total = total + score;
     }
 
-    // Act on the arguments provided.
-    print('Positional arguments: ${results.rest}');
-    if (verbose) {
-      print('[VERBOSE] All arguments: ${results.arguments}');
-    }
-  } on FormatException catch (e) {
-    // Print usage information if an invalid argument was provided.
-    print(e.message);
-    print('');
-    printUsage(argParser);
+    double average = total / scores.length;
+
+    avg[name] = double.parse(average.toStringAsFixed(2));
   }
+
+  var sor = avg.entries.toList();
+  sor.sort((a, b) => b.value.compareTo(a.value));
+
+  print('{');
+  for (var entry in sor) {
+    print('  "${entry.key}": ${entry.value},');
+  }
+  print('}');
 }
