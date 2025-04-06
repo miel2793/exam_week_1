@@ -1,9 +1,9 @@
 abstract class Vehicle {
   int _speed = 0;
 
-  void move();
+   move();
 
-  void setSpeed(int speed) {
+   setSpeed(int speed) {
     _speed = speed;
   }
 
@@ -11,13 +11,13 @@ abstract class Vehicle {
 }
 
 class Car extends Vehicle {
-  void move() {
-    print('The car is moving at ${speed} km/h');
+   move() {
+    print('The car is moving at $speed km/h');
   }
 }
 
-void main() {
+ main() {
   Car myCar = Car();
-  myCar.setSpeed(9);
+  myCar.setSpeed(867);
   myCar.move();
 }
