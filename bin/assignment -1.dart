@@ -18,6 +18,6 @@ class Car extends Vehicle {
 
 void main() {
   Car myCar = Car();
-  myCar.setSpeed(1);
+  myCar.setSpeed(67);
   myCar.move();
 }
